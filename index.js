@@ -394,7 +394,7 @@ Keystone.prototype.initNav = function(sections) {
  * @api public
  */
 
-Keystone.prototype.start = function(onStart) {
+Keystone.prototype.start = function(onHttpStart, onStart) {
 	
 	if (!this.app) {
 		throw new Error("KeystoneJS Initialisaton Error:\n\napp must be initialised. Call keystone.init() or keystone.connect(new Express()) first.\n\n");
@@ -662,7 +662,8 @@ Keystone.prototype.start = function(onStart) {
 		var createServer = function() {
 			
 			keystone.httpServer = http.createServer(app);
-			
+			onHttpStart(keystone.httpServer);
+
 			var port = keystone.get('port');
 			var ssl = keystone.get('ssl');
 			
